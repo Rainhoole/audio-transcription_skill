@@ -239,28 +239,6 @@ When unsure, mark uncertainty explicitly:
 
 ---
 
-## Example
-
-### Raw ASR
-
-```markdown
-**[00:10:00 -> 00:19:59] Speaker A:** 并 转 的 一个 状态 你 这 Figure 他们 在 干嘛 Figure 他们其实现在做的事都很好然后不过他们最近放了很多 demo...
-```
-
-### Optimized Transcript
-
-```markdown
-## 00:10 - 00:20 Figure、硬件路线、融资与数据成本
-
-**[00:10:00] 机器人团队：**
-
-Figure 最近放了很多 demo，比如 BattleRoom、厨房那些，确实很有意思。人形机器人难点在于全身控制能不能像 demo 里那么丝滑。如果能做到那种程度，teleop 可以做很多事情。
-
-但我们听说 Figure 整个 pipeline 还是偏 replay，每个任务、每个 step 都会用特调的 MPC，而不是一个非常 general 的 tracker。
-```
-
-The refined version is still a transcript. It is not a summary: it preserves the original topic flow and the speaker's intent.
-
 ---
 
 ## PDF Output
