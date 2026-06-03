@@ -2,7 +2,7 @@
 
 A production-oriented Hermes Agent skill for converting local meeting recordings into high-quality, readable transcripts.
 
-This skill is designed for long-form audio such as WeChat voice recordings, Zoom calls, founder meetings, expert calls, diligence calls, and internal strategy discussions. It uses a two-stage workflow:
+This skill is designed for long-form audio such as local voice recordings, Zoom calls, founder meetings, expert calls, diligence calls, and internal strategy discussions. It uses a two-stage workflow:
 
 1. **Raw transcription**: convert, chunk, upload, transcribe, and save auditable raw Markdown + JSON.
 2. **AI transcript refinement**: run a second AI pass to produce a clean, readable transcript while preserving the original conversation order.
@@ -76,19 +76,21 @@ The raw files are the audit trail. The refined transcript is the document most p
 
 ## Installation
 
-Clone this repository or install/copy the skill into your Hermes skills directory.
+Clone this repository and copy it into your Hermes skills directory:
 
 ```bash
 git clone https://github.com/Rainhoole/audio-transcription_skill.git
+mkdir -p ~/.hermes/skills/media
+cp -R audio-transcription_skill ~/.hermes/skills/media/audio-transcription
 ```
 
-For Hermes Agent, place the skill folder under:
+Then start a fresh Hermes session and load the skill when needed:
 
 ```bash
-~/.hermes/skills/media/audio-transcription/
+hermes -s audio-transcription
 ```
 
-or use your preferred Hermes skill installation method.
+The repository root contains `SKILL.md`, so it can also be inspected or copied as a standalone skill package.
 
 ---
 
@@ -139,10 +141,10 @@ Ask Hermes to transcribe a local recording:
 转录这个录音：/path/to/meeting.m4a
 ```
 
-For WeChat files on WSL, paths often look like:
+For files on WSL, paths often look like:
 
 ```text
-/mnt/d/WeChat Files/<username>/FileStorage/File/2026-06/meeting.m4a
+/mnt/d/Recordings/meeting.m4a
 ```
 
 The skill should:
@@ -160,7 +162,7 @@ The skill should:
 If using the included reusable script pattern:
 
 ```bash
-ASSEMBLYAI_API_KEY="your_key" \
+ASSEMBLYAI_API_KEY="***" \
 python3 scripts/transcribe_assemblyai_local.py \
   "/path/to/input.m4a" \
   "~/transcribe_work/my_meeting" \
@@ -271,14 +273,14 @@ For Chinese text, make sure your system has a CJK font installed, such as:
 When users provide Windows paths, translate them to WSL paths before processing.
 
 ```text
-D:\WeChat Files\...  ->  /mnt/d/WeChat Files/...
-C:\Users\...         ->  /mnt/c/Users/...
+D:\Recordings\meeting.m4a  ->  /mnt/d/Recordings/meeting.m4a
+C:\Users\Name\Downloads\meeting.m4a  ->  /mnt/c/Users/Name/Downloads/meeting.m4a
 ```
 
-Always quote paths because WeChat filenames often contain spaces, Chinese characters, and symbols such as `&`.
+Always quote paths because filenames often contain spaces, non-ASCII characters, and symbols such as `&`.
 
 ```bash
-ffprobe "/mnt/d/WeChat Files/user/FileStorage/File/2026-06/李天羽 & 李弘扬.m4a"
+ffprobe "/mnt/d/Recordings/Founder Meeting & Diligence.m4a"
 ```
 
 ---
